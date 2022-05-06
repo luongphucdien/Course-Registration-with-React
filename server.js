@@ -79,12 +79,24 @@ app.post('/api/validate', (req,res) => {
     }
 });
 
-app.post('/api/getcourses', (req,res) => {
+app.post('/api/getavailable', (req,res) => {
     const Sid = req.body.Sid;
     
     var query = "select distinct * from course where CourseID not in " +
                 "(select distinct CourseID from studentcourse where StudentID = '" + Sid + "')";
     
+    connection.query(query, (error, results) => {
+        if (error) throw error;
+        res.json({courses: results});
+    });
+});
+
+app.post('/api/getregistered', (req,res) => {
+    const Sid = req.body.Sid;
+
+    var query = "select * from course where CourseId in " +
+                "(select CourseID from studentcourse where StudentID = '" + Sid + "')";
+
     connection.query(query, (error, results) => {
         if (error) throw error;
         res.json({courses: results});

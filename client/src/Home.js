@@ -39,6 +39,13 @@ function Home() {
         });
     };
 
+    const studentID = getUser();
+    const showRegistered = () => {
+        axios.post('/api/getregistered', {Sid: studentID}).then(res => {
+            const registered = res.data.courses;
+            setCourses(registered);
+        });
+    }
 
     const ListItems = (props) => {
         const items = props.items;
@@ -60,10 +67,10 @@ function Home() {
         <div>
             <p>Name: {name}</p>
             <p>ID: {id}</p>
-            <input type='button' onClick={showCourses} value='Show Courses'/>
-            <input type='button' onClick={handleLogout} value='Logout'/>
-
-            <div>
+            <div className='row mb-3'> <input className='btn' type='button' onClick={showCourses} value='Show all courses'/> </div>
+            <div className='row mb-3'> <input className='btn' type='button' onClick={showRegistered} value='Show registered courses'/> </div>
+            <div className='row'> <input className='btn' type='button' onClick={handleLogout} value='Logout'/> </div>
+            <div className='container-fluid'>
                 <ListItems items={courses}/>
             </div>
         </div>

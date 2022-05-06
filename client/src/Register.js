@@ -14,7 +14,7 @@ function Register() {
             navigate('/');
         }
 
-        axios.post('/api/getcourses', {Sid: studentID}).then(res => {
+        axios.post('/api/getavailable', {Sid: studentID}).then(res => {
             const courses = res.data.courses;
             setCourses(courses);
             console.log(courses);
@@ -37,14 +37,16 @@ function Register() {
             return (
                 <>
                     {items.map((item) => 
-                        <input
-                            key={item.CourseID}
-                            type='button'
-                            id={item.CourseID}
-                            name={item.CourseID} 
-                            value={'Add ' + item.CourseName}
-                            onClick={addCourse}
-                        /> 
+                        <div className="row mb-3">
+                            <input
+                                key={item.CourseID}
+                                type='button'
+                                className="btn"
+                                name={item.CourseID} 
+                                value={'Add ' + item.CourseName}
+                                onClick={addCourse}
+                            /> 
+                        </div>
                     )}
                 </>
             );

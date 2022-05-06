@@ -36,32 +36,37 @@ function SignIn () {
 
 
     return (
-        <form action='' method='post' onSubmit={useValidate} autoComplete='off'>
-            <table>
-                <tr>
-                    <td> <label for="username">Username</label> </td>
-                    <td> <input 
+        <div className="">
+            <form action='' method='post' onSubmit={useValidate} autoComplete='off'>
+                <h1 className="mb-3">Sign In</h1>
+                <div className="row mb-1">
+                    <div className="col"> <label for="username">Username</label> </div>
+                    <div className="col">
+                        <input 
                             type="text"
                             id="username"
                             name="username"
-                            // onChange={e => {this.setState( {username: e.target.value} )}}
                             required
-                        /> </td>
-                </tr>
+                        />
+                    </div>
+                </div>
 
-                <tr>
-                    <td> <label for="password">Password</label> </td>
-                    <td> <input
+                <div className="row">
+                    <div className="col"> <label for="password">Password</label> </div>
+                    <div className="col">
+                        <input
                             type="password"
                             id="password"
-                            name="password" 
-                            // onChange={e => {this.setState( {password: e.target.value} )}}
-                            required/> </td>
-                </tr>
+                            name="password"
+                            required
+                        />
+                    </div>
+                </div>
 
-                <tr> <td> <input type='submit' value='Sign in'/> </td> </tr>
-            </table>
-        </form>
+                <div className="row mt-3"> <input className="btn" type='submit' value='Sign in'/> </div>
+            </form>
+        </div>
+        
     );
 }
 
