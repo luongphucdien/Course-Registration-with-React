@@ -6,7 +6,6 @@ import { removeSession, getUser, getToken } from './utils/Common';
 function Home() {
     const navigate = useNavigate();
  
-  // handle click event of logout button
     const handleLogout = () => {
         removeSession();    
         navigate('/');
@@ -16,7 +15,8 @@ function Home() {
         const token = getToken();
         if (token == null)
             navigate('/');
-    });
+            document.title = 'Home';
+    }, []);
 
     const ID = getUser();
     const [name, setName] = useState(null);
@@ -32,7 +32,7 @@ function Home() {
 
     const [courses, setCourses] = useState(null);
     const showCourses = () => {
-        axios.get('/api/courses').then(res => {
+        axios.get('/api/allcourses').then(res => {
             const courses = res.data.courses;
             setCourses(courses);
             console.log(courses);

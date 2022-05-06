@@ -1,9 +1,7 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
-import { getToken, getUser, setSession } from "./utils/Common";
-import Home from './Home';
+import { getToken, setSession } from "./utils/Common";
 import { useNavigate } from "react-router-dom";
-
 
 function SignIn () {
     const navigate = useNavigate();
@@ -12,7 +10,8 @@ function SignIn () {
         const token = getToken();
         if (token)
             navigate('/home');
-    });
+        document.title = 'Sign In';
+    }, []);
 
     const useValidate = (event) => {
         event.preventDefault();
@@ -66,20 +65,4 @@ function SignIn () {
     );
 }
 
-
-
-
 export default SignIn;
-
-
-// const useInput = initialValue => {
-//     const [value, setValue] = useState(initialValue);
-
-//     const handleChange = e => {
-//         setValue(e.target.value);
-//     }
-//     return {
-//         value,
-//         onChange: handleChange
-//     }
-// }

@@ -44,7 +44,7 @@ app.get('/api/test', (req, res) => {
     res.json({ message: 'I am a message from Server!'});
 });
 
-app.get('/api/courses', (req, res) => {
+app.get('/api/allcourses', (req, res) => {
     var query = "select * from course";
     connection.query(query, (error, results) => {
         if (error) throw error;
@@ -54,7 +54,6 @@ app.get('/api/courses', (req, res) => {
 
 app.post('/api/student', (req, res) => {
     const id = req.body.id;
-    console.log(id);
     var query = "select * from student where StudentID = '" + id + "'";
     connection.query(query, (error, results) => {
         if (error) throw error;
@@ -66,7 +65,6 @@ app.post('/api/student', (req, res) => {
 app.post('/api/validate', (req,res) => {
     const username = req.body.username;
     const password = req.body.password;
-    console.log(req.body);
     if (username === password) {
         var query = "select StudentID from student where StudentID = '" + username + "'";
         connection.query(query, (error, results) => {
@@ -79,6 +77,29 @@ app.post('/api/validate', (req,res) => {
             return console.log("Error");
         });
     }
+});
+
+app.post('/api/getcourses', (req,res) => {
+    const Sid = req.body.Sid;
+    
+    var query = "select distinct * from course where CourseID not in " +
+                "(select distinct CourseID from studentcourse where StudentID = '" + Sid + "')";
+    
+    connection.query(query, (error, results) => {
+        if (error) throw error;
+        res.json({courses: results});
+    });
+});
+
+app.post('/api/register', (req,res) => {
+    const Sid = req.body.Sid;
+    const Cid = req.body.Cid;
+
+    var query = "insert into studentcourse(StudentID, CourseID) values ('" + Sid + "','" + Cid + "')";
+    connection.query(query, (error, results) => {
+        if (error) throw error;
+        res.send("Added" + Cid);
+    });
 });
 
 app.listen(3001, () => console.log("App listening on port 3001"));
