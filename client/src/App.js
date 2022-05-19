@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import SignIn from './SignIn';
 import Home from './Home';
 import Register from './Register';
+import Example from './Untitled-1';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <div className='px-2'> <NavLink to='/'>Sign In</NavLink> </div>
             <div className='px-2'> <NavLink to='/home'>Home</NavLink> </div>
             <div className='px-2'> <NavLink to='/register'>Register Course</NavLink> </div>
+            <div className='px-2'> <NavLink to={'/example'}>Example</NavLink> </div>
           </div>
         </div>
 
@@ -22,6 +24,7 @@ function App() {
             <Route path="/" element={<SignIn/>} />
             <Route path="/home" element={<Home/>} />
             <Route path="/register" element={<Register/>} />
+            <Route path='/example' element={<Example/>}/>
           </Routes>
         </div>
       </BrowserRouter>
